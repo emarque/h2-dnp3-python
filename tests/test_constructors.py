@@ -227,6 +227,8 @@ class TestConstructors():
         assert opendnp3.TimeAndInterval(opendnp3.DNPTime(), 10, 0x1) is not None
         assert opendnp3.TimeAndInterval(opendnp3.DNPTime(), 10, opendnp3.IntervalUnits.Seconds) is not None
         assert opendnp3.OctetData(openpal.RSlice()) is not None
+        octets = opendnp3.OctetData(b"HY-LINK")
+        assert octets.ToRSlice().Size() == 7
         assert opendnp3.OctetString(openpal.RSlice()) is not None
         assert opendnp3.SecurityStat(opendnp3.SecurityStatValue(), 0x1, opendnp3.DNPTime()) is not None
         assert opendnp3.SecurityStat(0x1, 10, 100) is not None
