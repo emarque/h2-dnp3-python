@@ -50,6 +50,18 @@ void bind_OctetData(py::module &m)
         .def(py::init<>())
 
         .def(
+            py::init([](py::bytes input) {
+                const std::string value = input.cast<std::string>();
+                const auto* data = reinterpret_cast<const uint8_t*>(value.data());
+                return opendnp3::OctetData(
+                    openpal::RSlice(data, static_cast<uint32_t>(value.size()))
+                );
+            }),
+            py::arg("input"),
+            "Construct an OctetData value from Python bytes."
+        )
+
+        .def(
             py::init<const openpal::RSlice&>(),
             py::arg("input")
         )
